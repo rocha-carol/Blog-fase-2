@@ -2,7 +2,6 @@ import "dotenv/config";
 import conectaNaDatabase from "./src/config/dbConnect.js";
 import app from "./src/app.js";
 
-
 const PORT = 3000;
 const conexao = await conectaNaDatabase();
 

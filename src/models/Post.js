@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-//import { autorSchema } from "./autor.js"; 
-
-
+import { autorSchema } from "./autor.js"; 
 const PostSchema = new mongoose.Schema({
     //id: { type: mongoose.Schema.Types.ObjectId },
     titulo: { type: String, required: true },
@@ -19,7 +17,7 @@ const PostSchema = new mongoose.Schema({
     enum: ["publicado", "rascunho"], 
     default: "rascunho"
   },
-  autor: { type: mongoose.Schema.Types.ObjectId, ref: "Autor", required: true },
+  autor: { type: mongoose.Schema.Types.ObjectId, ref: "Usuarios", required: true },
 }, {
   versionKey: false,
   timestamps: true
@@ -37,6 +35,6 @@ const PostSchema = new mongoose.Schema({
 const Posts = mongoose.model("Posts", PostSchema);
 
 
-export default Posts;
+export { Posts, PostSchema };
 
-//export default post;
+
