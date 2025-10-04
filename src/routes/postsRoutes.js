@@ -1,7 +1,7 @@
 import express from "express";
 import { autenticar, autorizarProfessor } from "../middleware/auth.js";
 import { 
-  listarPosts, lerPost, criarPost, editarPost, excluirPost, buscarPosts
+  listarPosts, buscarPosts, lerPost, criarPost, editarPost, excluirPost
 } from "../controllers/PostController.js";
 
 const routes = express.Router();

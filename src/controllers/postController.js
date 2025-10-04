@@ -12,16 +12,18 @@ function formatarData(data) {
 
 // Listar todos os posts (para alunos ou professores)
 async function listarPosts(req, res) {
+  console.log("entrou no listar posts")
   try {
     const posts = await Posts.find().populate("autor", "nome").lean();
 
     // Formata a saída
-    const postsFormatados = posts.map(post => ({
-  titulo: post.titulo,
-  conteudo: post.conteudo.substring(0,200) + "...",
-  autor: post.autor ? post.autor.nome : "Autor não encontrado",
-  "criado em": formatarData(post.createdAt)
-    }));
+  const postsFormatados = posts.map(post => ({  
+    id: post._id,
+    titulo: post.titulo,
+    conteudo: post.conteudo.substring(0,200) + "...",
+    autor: post.autor ? post.autor.nome : "Autor não encontrado",
+    "criado em": formatarData(post.createdAt)
+  }));
 
     res.json(postsFormatados);
   } catch (err) {
@@ -121,14 +123,16 @@ async function excluirPost(req, res) {
 
 // Buscar posts por palavra-chave no título ou conteúdo
 async function buscarPosts(req, res) {
+   console.log("Query recebida:", req.query);
   try {
-    const { q } = req.query;
+    const { q } = req.query; 
     if (!q) return res.status(400).json({ message: "Parâmetro de busca não informado" });
 
     const posts = await Posts.find({
       $or: [
         { titulo: { $regex: q, $options: "i" } },
-        { conteudo: { $regex: q, $options: "i" } }
+        { conteudo: { $regex: q, $options: "i" } },
+        { areaDoConhecimento: { $regex: q, $options: "i" } }
       ]
     }).populate("autor", "nome").lean();
 
