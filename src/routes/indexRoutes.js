@@ -1,12 +1,12 @@
-import { routes as postsRoutes } from "./postsRoutes.js"
-import autores from "./autoresRoutes.js";
-import { routes as authRoutes } from "./authRoutes.js";
+import postsRoutes from "./postsRoutes.js";
+import autoresRoutes from "./autoresRoutes.js";
+import autenticacaoRoutes from "./autenticacaoRoutes.js";
 
-const routes = (app) => {
+const indexRoutes = (app) => {
   app.use("/posts", postsRoutes);
-  app.use("/autores", autores);
-  app.use('/auth', authRoutes);
+  app.use("/autores", autoresRoutes);
+  app.use('/autenticacao', autenticacaoRoutes);
 };
 
-export default routes;
+export default indexRoutes;
 

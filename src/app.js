@@ -1,7 +1,7 @@
 import express from "express";
 
 //import routes from "./routes/postsRoutes.js";
-import routes from "./routes/indexRoutes.js";
+import indexRoutes from "./routes/indexRoutes.js";
 import notFound from "./middleware/notFound.js";
 import errorHandler from "./middleware/errorHandler.js";
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.get("/", (req, res) => res.status(200).send("Blog escolar"));
 
 // Rotas principais
-routes(app);
+indexRoutes(app);
 
 // Middleware de rota não encontrada (404)
 app.use(notFound);

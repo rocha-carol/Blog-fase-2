@@ -1,20 +1,22 @@
 import express from "express";
-import { autenticar, autorizarProfessor } from "../middleware/auth.js";
-import { 
-  listarPosts, buscarPosts, lerPost, criarPost, editarPost, excluirPost
-} from "../controllers/PostController.js";
+import PostsController from "../controllers/postController.js";
+import { validarProfessor } from "../middleware/validarProfessor.js";
 
-const routes = express.Router();
+
+
+const postsRoutes = express.Router();
 
 // ROTAS PARA TODOS (alunos e professores)
-routes.get("/", listarPosts);         
-routes.get("/search", buscarPosts);   
-routes.get("/:id", lerPost);          
+postsRoutes.get("/", PostsController.listarPosts);
+postsRoutes.get("/search", PostsController.buscarPosts);
+postsRoutes.get("/:id", PostsController.lerPost);
 
 // ROTAS APENAS PARA PROFESSORES
-routes.post("/", autenticar, autorizarProfessor, criarPost);       
-routes.put("/:id", autenticar, autorizarProfessor, editarPost);   
-routes.delete("/:id", autenticar, autorizarProfessor, excluirPost); 
+postsRoutes.post("/", validarProfessor, PostsController.criarPost);
+postsRoutes.put("/:id", validarProfessor, PostsController.editarPost);
+postsRoutes.delete("/:id", validarProfessor, PostsController.excluirPost);
 
-export { routes };
+
+export default postsRoutes;
+
 
