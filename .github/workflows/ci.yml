@@ -2,7 +2,9 @@ name: CI - Testes e Build do Projeto
 
 on:
   push:
-    branches: [desenvolvimento]
+    branches: [main, desenvolvimento]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
