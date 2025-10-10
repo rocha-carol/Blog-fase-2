@@ -160,7 +160,7 @@ class PostsController {
     };
   };
 };
-// Listar todos os posts (para alunos ou professores)
+
 
 
 export default PostsController;

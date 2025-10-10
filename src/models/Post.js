@@ -37,6 +37,6 @@ PostSchema.set("toJSON", {
 const Posts = mongoose.model("Posts", PostSchema);
 
 
-export { Posts, PostSchema };
+export { Posts };
 
 
