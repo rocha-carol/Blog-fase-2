@@ -11,16 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📦 Clonar o código do repositório
+      - name: Clonar o código do repositório
         uses: actions/checkout@v3
 
-      - name: 🟢 Configurar Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
 
-      - name: ⚙️ Instalar dependências
+      - name: Instalar dependências
         run: npm install
 
-      - name: 🧪 Executar testes
+      - name: Executar testes
         run: npm test
