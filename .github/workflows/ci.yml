@@ -2,9 +2,9 @@ name: CI - Testes Automáticos
 
 on:
   push:
-    branches: [main]
+    branches: [desenvolvimento]
   pull_request:
-    branches: [main]
+    branches: [desenvolvimento]
 
 jobs:
   build:
