@@ -30,6 +30,7 @@ jobs:
             echo "tag=latest" >> $GITHUB_OUTPUT
           else
             echo "tag=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+          fi
 
       # Build e push da imagem para Docker Hub
       - name: Build e push da imagem
