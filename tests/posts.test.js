@@ -51,7 +51,6 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
             titulo: "Post 1",
             conteudo: "Conteúdo do post 1",
             areaDoConhecimento: "Matemática",
-            autor: professor._id
         });
 
         // Faz a requisição GET /posts
@@ -71,13 +70,11 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
             titulo: "Post 2",
             conteudo: "Conteúdo do post 2",
             areaDoConhecimento: "Ciências Humanas",
-            autor: professor._id
         });
 
         const res = await request(app).get(`/posts/${post._id}`);
         expect(res.statusCode).toBe(200);
         expect(res.body.titulo).toBe("Post 2");
-        expect(res.body).toHaveProperty("autor", "Professor Teste");
     });
 
     it("Deve retornar 404 ao ler post inexistente", async () => {
@@ -102,7 +99,6 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
 
         expect(res.statusCode).toBe(201);
         expect(res.body.titulo).toBe("Novo Post");
-        expect(res.body.autor).toBe("Professor Teste");
         expect(res.body.status).toBe("publicado"); // Confirma status
     });
 
@@ -144,7 +140,6 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
             titulo: "Post Editar",
             conteudo: "Conteúdo antigo",
             areaDoConhecimento: "Tecnologias",
-            autor: professor._id
         });
 
         const res = await request(app)
@@ -181,7 +176,6 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
             titulo: "Post Deletar",
             conteudo: "Conteúdo para deletar",
             areaDoConhecimento: "Ciências da Natureza",
-            autor: professor._id
         });
 
         const res = await request(app)
@@ -214,14 +208,12 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
             titulo: "Matemática Avançada",
             conteudo: "Conteúdo sobre matemática",
             areaDoConhecimento: "Matemática",
-            autor: professor._id
         });
 
         await Posts.create({
             titulo: "Linguagens Básicas",
             conteudo: "Conteúdo sobre linguagens",
             areaDoConhecimento: "Linguagens",
-            autor: professor._id
         });
 
         const res = await request(app).get("/posts/search?q=Matemática");
@@ -242,7 +234,6 @@ test("deve formatar corretamente as datas no método toJSON do Post", async () =
         titulo: "Teste de formato",
         conteudo: "Conteúdo teste",
         areaDoConhecimento: "Linguagens",
-        autor: new mongoose.Types.ObjectId(),
         createdAt: new Date("2024-01-01"),
         updatedAt: new Date("2024-01-02"),
     });

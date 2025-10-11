@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { autorSchema } from "./autor.js";
 
 const PostSchema = new mongoose.Schema({
   titulo: { type: String, required: true },
@@ -9,17 +8,6 @@ const PostSchema = new mongoose.Schema({
       values: ["Linguagens", "Matemática", "Ciências da Natureza", "Ciências Humanas", "Tecnologias"],
     }
   },
-
-  // ➝ NOVO CAMPO para listagem pública/resumida
-  resumo: { type: String },
-
-  // ➝ NOVO CAMPO para definir se o post aparece para alunos
-  status: {
-    type: String,
-    enum: ["publicado", "rascunho"],
-    default: "rascunho"
-  },
-  autor: { type: mongoose.Schema.Types.ObjectId, ref: "professor", required: true },
 }, {
   versionKey: false,
   timestamps: true
