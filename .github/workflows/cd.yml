@@ -43,7 +43,7 @@ jobs:
         run: |
           docker push carolinesant/blog:${{ steps.tag.outputs.tag }}
 
-      # Mensagem final
+      # Mensagem de conclusão
       - name: Finalização
         run: |
           TAG=${{ steps.tag.outputs.tag }}
