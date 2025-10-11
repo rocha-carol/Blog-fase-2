@@ -31,6 +31,7 @@ jobs:
             echo "tag=latest" >> $GITHUB_OUTPUT
           else
             echo "tag=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+            fi
 
       # Build da imagem Docker
       - name: Build da imagem Docker
