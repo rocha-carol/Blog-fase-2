@@ -4,15 +4,14 @@ on:
   push:
     branches:
       - main
-      - desenvolvimento # Workflow acionado para ambas as branches
+      - desenvolvimento
 
 jobs:
-  build-and-deploy:
-    name: Build e Push para Docker Hub
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout do repositório
+      # Checkout do código
       - name: Checkout do código
         uses: actions/checkout@v4
 
@@ -23,17 +22,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build e push da imagem
-        uses: docker/build-push-action@v4
-        with:
-          push: true
-          tags: carolinesant/blog:desenvolvimento
-
-      - name: Atualizar containers com docker compose
-        run: |
-          docker compose pull app
-          docker compose up -d
-
       # Definir tag da imagem baseada na branch
       - name: Definir tag da imagem
         id: tag
@@ -42,17 +30,20 @@ jobs:
             echo "tag=latest" >> $GITHUB_OUTPUT
           else
             echo "tag=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
-            fi
 
-      # Build da imagem Docker
-      - name: Build da imagem Docker
-        run: |
-          docker build -t carolinesant/blog:${{ steps.tag.outputs.tag }} .
+      # Build e push da imagem para Docker Hub
+      - name: Build e push da imagem
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: carolinesant/blog:${{ steps.tag.outputs.tag }}
 
-      # Push da imagem para o Docker Hub
-      - name: Push para o Docker Hub
+      # Atualizar containers com docker-compose
+      - name: Atualizar containers
         run: |
-          docker push carolinesant/blog:${{ steps.tag.outputs.tag }}
+          docker compose pull app
+          docker compose up -d
 
       # Mensagem de conclusão
       - name: Finalização

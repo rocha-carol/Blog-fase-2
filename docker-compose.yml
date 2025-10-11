@@ -1,37 +1,34 @@
-version: "3.9"  # Versão do docker-compose
+version: "3.9"
 
 services:
-  app:  # Serviço da sua aplicação Node
-    image: carolinesant/blog:desenvolvimento  # Sua imagem do Docker Hub
+  app:
+    image: carolinesant/blog:desenvolvimento
     container_name: blog_app
-    restart: unless-stopped  # Reinicia o container caso ele falhe
+    restart: unless-stopped
     ports:
-      - "3000:3000"  # Porta local 3000 mapeada para a porta 3000 do container
+      - "3000:3000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/blog  # Conexão com o MongoDB dentro da rede
+      - MONGO_URI=mongodb://mongo:27017/blog
       - PORT=3000
     depends_on:
-      - mongo  # Garante que o MongoDB será iniciado antes do app
+      - mongo
     networks:
       - blog_network
-    pull_policy: always  # Garante que sempre use a última versão da imagem do Docker Hub
 
-  mongo:  # Serviço do MongoDB
-    image: mongo:6.0  # Versão oficial do MongoDB
+  mongo:
+    image: mongo:6.0
     container_name: blog_mongo
     restart: unless-stopped
     ports:
-      - "27017:27017"  # Porta local mapeada para a porta do container
+      - "27017:27017"
     volumes:
-      - mongo_data:/data/db  # Persiste os dados mesmo se o container for removido
+      - mongo_data:/data/db
     networks:
       - blog_network
 
-# Redes compartilhadas entre os containers
 networks:
   blog_network:
     driver: bridge
 
-# Volumes para persistência de dados
 volumes:
   mongo_data:
