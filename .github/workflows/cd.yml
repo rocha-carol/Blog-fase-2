@@ -29,10 +29,10 @@ jobs:
           push: true
           tags: carolinesant/blog:desenvolvimento
 
-      - name: Atualizar containers com docker-compose
+      - name: Atualizar containers com docker compose
         run: |
-          docker-compose pull app
-          docker-compose up -d
+          docker compose pull app
+          docker compose up -d
 
       # Definir tag da imagem baseada na branch
       - name: Definir tag da imagem
