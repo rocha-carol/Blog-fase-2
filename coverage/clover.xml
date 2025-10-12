@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1760227401716" clover="3.2.0">
-  <project timestamp="1760227401717" name="All files">
-    <metrics statements="112" coveredstatements="95" conditionals="46" coveredconditionals="29" methods="17" coveredmethods="15" elements="175" coveredelements="139" complexity="0" loc="112" ncloc="112" packages="5" files="11" classes="11"/>
+<coverage generated="1760242465676" clover="3.2.0">
+  <project timestamp="1760242465676" name="All files">
+    <metrics statements="120" coveredstatements="100" conditionals="48" coveredconditionals="30" methods="18" coveredmethods="16" elements="186" coveredelements="146" complexity="0" loc="120" ncloc="120" packages="6" files="12" classes="12"/>
     <package name="src">
       <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="app.js" path="C:\Users\carol\Blogversao2\src\app.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="18" count="2" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.config">
+      <metrics statements="8" coveredstatements="5" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <file name="dbConnect.js" path="C:\Users\carol\Blogversao2\src\config\dbConnect.js">
+        <metrics statements="8" coveredstatements="5" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="8" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.controllers">
@@ -129,7 +143,7 @@
         <line num="16" count="2" type="stmt"/>
         <line num="18" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="19" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="25" count="2" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
       </file>
       <file name="Usuario.js" path="C:\Users\carol\Blogversao2\src\models\Usuario.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>

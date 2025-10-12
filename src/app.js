@@ -1,6 +1,5 @@
 import express from "express";
 
-//import routes from "./routes/postsRoutes.js";
 import indexRoutes from "./routes/indexRoutes.js";
 import notFound from "./middleware/notFound.js";
 import errorHandler from "./middleware/errorHandler.js";

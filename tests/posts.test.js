@@ -1,25 +1,26 @@
 import request from "supertest";
 import mongoose from "mongoose";
-import { MongoMemoryServer } from "mongodb-memory-server";
 import bcrypt from "bcryptjs";
 
 import app from "../src/app.js";
+import conectaNaDatabase from "../src/config/dbConnect.js";
 import { Posts } from "../src/models/Post.js";
 import { Usuario } from "../src/models/Usuario.js";
 
-jest.setTimeout(60000);
-let mongoServer;
+jest.setTimeout(60000); //aumenta timeout para evitar falhas em testes demorados
+
+let professor;
 
 describe("Testes de Posts", () => {
-    let professor;
 
-    // ================================
     // Executado antes de todos os testes
     beforeAll(async () => {
-        // Inicializa um servidor MongoDB em memória (isolado, não polui banco real)
-        mongoServer = await MongoMemoryServer.create();
-        const uri = mongoServer.getUri();
-        await mongoose.connect(uri);
+
+        // Define ambiente de teste
+        process.env.NODE_ENV = "test";
+
+        // Conecta ao MongoMemoryServer (via dbConnect)
+        const conexao = await conectaNaDatabase();
 
         // Cria um usuário professor para simular login/autorização
         const hashedSenha = await bcrypt.hash("123456", 10);
@@ -31,40 +32,32 @@ describe("Testes de Posts", () => {
         });
     });
 
-    // ================================
-    // Executado depois de todos os testes
-    afterAll(async () => {
-        await mongoose.disconnect();
-        await mongoServer.stop();
-    });
-
-    // ================================
     // Limpa posts entre os testes
     afterEach(async () => {
         await Posts.deleteMany();
     });
 
-    // =====================================
+    // Desconecta do banco após todos os testes
+    afterAll(async () => {
+        await mongoose.disconnect();
+    });
+
     // LISTAR POSTS
     it("Deve listar todos os posts", async () => {
-        // Cria um post diretamente no banco
         await Posts.create({
             titulo: "Post 1",
             conteudo: "Conteúdo do post 1",
             areaDoConhecimento: "Matemática",
         });
 
-        // Faz a requisição GET /posts
         const res = await request(app).get("/posts");
 
-        // Verificações
-        expect(res.statusCode).toBe(200);            // Status 200 OK
-        expect(res.body.length).toBe(1);            // Deve retornar 1 post
-        expect(res.body[0]).toHaveProperty("id");   // Deve ter campo 'id'
-        expect(res.body[0].titulo).toBe("Post 1");  // Título correto
+        expect(res.statusCode).toBe(200);
+        expect(res.body.length).toBe(1);
+        expect(res.body[0]).toHaveProperty("id");
+        expect(res.body[0].titulo).toBe("Post 1");
     });
 
-    // =====================================
     // LER POST POR ID
     it("Deve ler um post pelo ID", async () => {
         const post = await Posts.create({
@@ -84,7 +77,6 @@ describe("Testes de Posts", () => {
         expect(res.body.message).toBe("Post não encontrado");
     });
 
-    // =====================================
     // CRIAR POST
     it("Deve criar um post como professor", async () => {
         const res = await request(app)
@@ -130,7 +122,6 @@ describe("Testes de Posts", () => {
         expect(res.body.message).toBe("Usuário não encontrado");
     });
 
-    // =====================================
     // EDITAR POST
     it("Deve editar um post existente", async () => {
         const post = await Posts.create({
@@ -166,7 +157,6 @@ describe("Testes de Posts", () => {
         expect(res.body.message).toBe("Post não encontrado");
     });
 
-    // =====================================
     // EXCLUIR POST
     it("Deve excluir um post existente", async () => {
         const post = await Posts.create({
@@ -198,7 +188,6 @@ describe("Testes de Posts", () => {
         expect(res.body.message).toBe("Post não encontrado");
     });
 
-    // =====================================
     // BUSCA POR PALAVRA-CHAVE
     it("Deve buscar posts por palavra-chave no título", async () => {
         await Posts.create({
@@ -226,6 +215,7 @@ describe("Testes de Posts", () => {
     });
 });
 
+// Teste separado para verificar formatação de datas
 test("deve formatar corretamente as datas no método toJSON do Post", async () => {
     const post = new Posts({
         titulo: "Teste de formato",
