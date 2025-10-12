@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.8"
 
 services:
   app:
@@ -7,28 +7,11 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-    environment:
-      - MONGO_URI=mongodb://mongo:27017/blog
-      - PORT=3000
-    depends_on:
-      - mongo
-    networks:
-      - blog_network
-
-  mongo:
-    image: mongo:6.0
-    container_name: blog_mongo
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
+    env_file:
+      - .env
     networks:
       - blog_network
 
 networks:
   blog_network:
     driver: bridge
-
-volumes:
-  mongo_data:
