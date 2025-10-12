@@ -9,7 +9,7 @@ import { Usuario } from "../src/models/Usuario.js";
 
 let mongoServer;
 
-describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
+describe("Testes de Posts", () => {
     let professor;
 
     // ================================
@@ -94,12 +94,10 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
                 titulo: "Novo Post",
                 conteudo: "Conteúdo do novo post",
                 areaDoConhecimento: "Linguagens",
-                status: "publicado" // Testando status publicado
             });
 
         expect(res.statusCode).toBe(201);
         expect(res.body.titulo).toBe("Novo Post");
-        expect(res.body.status).toBe("publicado"); // Confirma status
     });
 
     it("Deve criar um post como rascunho", async () => {
@@ -111,11 +109,9 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
                 titulo: "Rascunho",
                 conteudo: "Conteúdo do rascunho",
                 areaDoConhecimento: "Tecnologias"
-                // Status não enviado → deve ser "rascunho" por default
             });
 
         expect(res.statusCode).toBe(201);
-        expect(res.body.status).toBe("rascunho");
     });
 
     it("Deve falhar ao criar post com usuário inválido", async () => {

@@ -45,7 +45,7 @@ export { validarProfessor };
 
 
 
-/*static async autenticar(req, res, next) {
+/*static async validar(req, res, next) {
   const token = req.headers["authorization"]; // Pega o token do header
 
   /*if (!token) {

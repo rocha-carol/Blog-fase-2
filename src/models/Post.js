@@ -18,13 +18,8 @@ PostSchema.set("toJSON", {
     if (ret.createdAt) ret.createdAt = `Criado em: ${new Date(ret.createdAt).toLocaleDateString('pt-BR')}`;
     if (ret.updatedAt) ret.updatedAt = `Atualizado em: ${new Date(ret.updatedAt).toLocaleDateString('pt-BR')}`;
   }
-
-
 });
 
 const Posts = mongoose.model("Posts", PostSchema);
 
-
 export { Posts };
-
-
