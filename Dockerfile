@@ -1,5 +1,5 @@
 # Usa uma imagem base oficial do Node.js
-FROM node:18
+FROM node:20
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
@@ -16,5 +16,6 @@ COPY . .
 # Expõe a porta que o app usa
 EXPOSE 3000
 
-# Comando para iniciar o servidor
-CMD ["node", "server.js"]
+# Comando para iniciar
+CMD ["npm", "start"]
+
