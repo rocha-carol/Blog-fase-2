@@ -13,6 +13,9 @@ RUN npm install
 # Copia o restante do código do projeto
 COPY . .
 
+# Limpa cache do Jest
+RUN npx jest --clearCache
+
 # Expõe a porta que o app usa
 EXPOSE 3000
 
