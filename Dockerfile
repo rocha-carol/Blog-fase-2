@@ -16,6 +16,6 @@ COPY . .
 # Expõe a porta que o app usa
 EXPOSE 3000
 
-# Comando para iniciar
-CMD ["npm", "start"]
-
+# Comando para testar/iniciar
+ENTRYPOINT ["npm"]
+CMD ["start"]
