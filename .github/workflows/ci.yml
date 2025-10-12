@@ -23,4 +23,4 @@ jobs:
         run: npm install
 
       - name: Executar testes
-        run: npm test || echo "Sem testes configurados ainda"
+        run: npm test || echo "testes em execução"

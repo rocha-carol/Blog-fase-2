@@ -4,7 +4,6 @@ import indexRoutes from "./routes/indexRoutes.js";
 import notFound from "./middleware/notFound.js";
 import errorHandler from "./middleware/errorHandler.js";
 
-
 const app = express();
 
 // Middleware global para JSON
@@ -22,5 +21,5 @@ app.use(notFound);
 // Middleware de erro (500)
 app.use(errorHandler);
 
-export default app;
 
+export default app;

@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
 import app from "../src/app.js";
-import conectaNaDatabase from "../src/config/dbConnect.js";
+import conectaNaDatabase, { disconnectTestDB } from "../src/config/dbConnect.js";
 import { Posts } from "../src/models/Post.js";
 import { Usuario } from "../src/models/Usuario.js";
 
@@ -15,11 +15,9 @@ describe("Testes de Posts", () => {
 
     // Executado antes de todos os testes
     beforeAll(async () => {
-
-        // Define ambiente de teste
         process.env.NODE_ENV = "test";
 
-        // Conecta ao MongoMemoryServer (via dbConnect)
+        // Conecta apenas uma vez
         const conexao = await conectaNaDatabase();
 
         // Cria um usuário professor para simular login/autorização
@@ -39,7 +37,7 @@ describe("Testes de Posts", () => {
 
     // Desconecta do banco após todos os testes
     afterAll(async () => {
-        await mongoose.disconnect();
+        await disconnectTestDB();
     });
 
     // LISTAR POSTS
