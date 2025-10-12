@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -126,37 +126,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,7 +163,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,36 +179,36 @@ import { Usuario } from "../models/Usuario.js";
 &nbsp;
 class ValidacaoController {
     // Registrar usuário  
-    static async cadastrarUsuario(req, res) {
-        try {
-            const { nome, email, senha, role } = req.body;
-            const hashedSenha = await bcrypt.hash(senha, 10);
-            const novoUsuario = await Usuario.create({ nome, email, senha: hashedSenha, role });
+<span class="fstat-no" title="function not covered" >    st</span>atic async cadastrarUsuario(req, res) {
+<span class="cstat-no" title="statement not covered" >        try {</span>
+            const { nome, email, senha, role } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+            const hashedSenha = <span class="cstat-no" title="statement not covered" >await bcrypt.hash(senha, 10);</span>
+            const novoUsuario = <span class="cstat-no" title="statement not covered" >await Usuario.create({ nome, email, senha: hashedSenha, role });</span>
 &nbsp;
-            res.status(201).json({
+<span class="cstat-no" title="statement not covered" >            res.status(201).json({</span>
                 message: "Usuário registrado com sucesso", Usuario: novoUsuario
             });
 &nbsp;
         } catch (err) {
-            res.status(400).json({ message: `${err.message} - Falha ao registrar usuario` });
+<span class="cstat-no" title="statement not covered" >            res.status(400).json({ message: `${err.message} - Falha ao registrar usuario` });</span>
         }
     }
     // Login (gera o token JWT)
-    static async login(req, res) {
-        try {
-            const { email, senha } = req.body;
+<span class="fstat-no" title="function not covered" >    st</span>atic async login(req, res) {
+<span class="cstat-no" title="statement not covered" >        try {</span>
+            const { email, senha } = <span class="cstat-no" title="statement not covered" >req.body;</span>
 &nbsp;
             // Verifica se email e senha foram enviados
-            if (!email || !senha) return res.status(400).json({ message: "Email e senha são obrigatórios" });
+<span class="cstat-no" title="statement not covered" >            if (!email || !senha) <span class="cstat-no" title="statement not covered" >return res.status(400).json({ message: "Email e senha são obrigatórios" });</span></span>
 &nbsp;
-            const usuarioCadastrado = await Usuario.findOne({ email });
-            if (!usuarioCadastrado) return res.status(400).json({ message: "Usuário não encontrado" });
+            const usuarioCadastrado = <span class="cstat-no" title="statement not covered" >await Usuario.findOne({ email });</span>
+<span class="cstat-no" title="statement not covered" >            if (!usuarioCadastrado) <span class="cstat-no" title="statement not covered" >return res.status(400).json({ message: "Usuário não encontrado" });</span></span>
 &nbsp;
-            const senhaCorreta = await bcrypt.compare(senha, usuarioCadastrado.senha);
-            if (!senhaCorreta) return res.status(400).json({ message: "Senha inválida" });
+            const senhaCorreta = <span class="cstat-no" title="statement not covered" >await bcrypt.compare(senha, usuarioCadastrado.senha);</span>
+<span class="cstat-no" title="statement not covered" >            if (!senhaCorreta) <span class="cstat-no" title="statement not covered" >return res.status(400).json({ message: "Senha inválida" });</span></span>
 &nbsp;
             // Retorna os dados do usuário
-            return res.status(200).json({
+<span class="cstat-no" title="statement not covered" >            return res.status(200).json({</span>
                 message: "Login realizado",
                 usuario: {
                     id: usuarioCadastrado._id,
@@ -219,7 +219,7 @@ class ValidacaoController {
             });
 &nbsp;
         } catch (err) {
-            return res.status(500).json({ message: err.message });
+<span class="cstat-no" title="statement not covered" >            return res.status(500).json({ message: err.message });</span>
         }
     }
 };
@@ -232,7 +232,7 @@ export default ValidacaoController;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-12T20:30:56.412Z
+                at 2025-10-12T22:40:22.365Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

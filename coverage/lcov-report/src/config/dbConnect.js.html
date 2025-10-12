@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.23% </span>
+                <span class="strong">72% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/26</span>
+                <span class='fraction'>18/25</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.72% </span>
+                <span class="strong">76.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/22</span>
+                <span class='fraction'>16/21</span>
             </div>
         
             
@@ -112,53 +112,51 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,32 +165,32 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 &nbsp;
 let mongoServer;
-let isConnected = false; // Flag para evitar múltiplas conexões
+let isConnected = false; // evita reconexões
 &nbsp;
-/**
- * Conecta ao banco de dados
- * - Se NODE_ENV=test, usa MongoMemoryServer (para testes)
- * - Senão, usa Mongo real via DB_CONNECTION_STRING
- */
 async function conectaNaDatabase() {
-    try {
-        if (isConnected) return mongoose.connection; // evita reconexão
+    if (isConnected) return mongoose.connection;
 &nbsp;
+    try {
         let mongoUrl;
 &nbsp;
         if (process.env.NODE_ENV === "test") {
-            mongoServer = await MongoMemoryServer.create();
+            mongoServer = await MongoMemoryServer.create({
+                binary: { version: "7.0.14" },
+            });
             mongoUrl = mongoServer.getUri();
-            console.log("Conectando ao Mongo Memory Server (Teste)...");
+            console.log("Conectando ao MongoMemoryServer (teste)...");
         } else <span class="missing-if-branch" title="else path not taken" >E</span>{
 <span class="cstat-no" title="statement not covered" >            mongoUrl = process.env.DB_CONNECTION_STRING;</span>
 <span class="cstat-no" title="statement not covered" >            if (!mongoUrl) <span class="cstat-no" title="statement not covered" >throw new Error("DB_CONNECTION_STRING não definida no .env");</span></span>
-<span class="cstat-no" title="statement not covered" >            console.log("Conectando ao Banco de Dados");</span>
         }
 &nbsp;
-        await mongoose.connect(mongoUrl);
-        isConnected = true; // marca que já está conectado
-        console.log("Conectado ao MongoDB!");
+        await mongoose.connect(mongoUrl, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+&nbsp;
+        isConnected = true;
+        console.log("Conectado ao Banco de Dados!");
         return mongoose.connection;
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >        console.error("Erro ao conectar no MongoDB:", error.message);</span>
@@ -201,12 +199,11 @@ async function conectaNaDatabase() {
     }
 }
 &nbsp;
-// Função para parar o servidor de teste
 async function disconnectTestDB() {
     if (mongoose.connection.readyState !== 0) {
         await mongoose.connection.dropDatabase();
         await mongoose.connection.close();
-        isConnected = false; // reseta flag para permitir nova conexão
+        isConnected = false;
     }
     <span class="missing-if-branch" title="else path not taken" >E</span>if (mongoServer) await mongoServer.stop();
 }
@@ -220,7 +217,7 @@ export { disconnectTestDB };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-12T20:30:56.412Z
+                at 2025-10-12T22:40:22.365Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

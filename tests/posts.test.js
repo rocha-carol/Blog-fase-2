@@ -30,15 +30,16 @@ describe("Testes de Posts", () => {
         });
     });
 
-    // Limpa posts entre os testes
-    afterEach(async () => {
-        await Posts.deleteMany();
-    });
-
     // Desconecta do banco após todos os testes
     afterAll(async () => {
         await disconnectTestDB();
     });
+
+    afterEach(async () => {
+        // Limpa apenas os posts, não usuários
+        await Posts.deleteMany({});
+    });
+
 
     // LISTAR POSTS
     it("Deve listar todos os posts", async () => {
@@ -91,7 +92,7 @@ describe("Testes de Posts", () => {
         expect(res.body.titulo).toBe("Novo Post");
     });
 
-    it("Deve criar um post como rascunho", async () => {
+    it("Deve criar um post", async () => {
         const res = await request(app)
             .post("/posts")
             .send({

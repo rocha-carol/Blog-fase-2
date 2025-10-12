@@ -2,32 +2,32 @@ import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
 let mongoServer;
-let isConnected = false; // Flag para evitar múltiplas conexões
+let isConnected = false; // evita reconexões
 
-/**
- * Conecta ao banco de dados
- * - Se NODE_ENV=test, usa MongoMemoryServer (para testes)
- * - Senão, usa Mongo real via DB_CONNECTION_STRING
- */
 async function conectaNaDatabase() {
-    try {
-        if (isConnected) return mongoose.connection; // evita reconexão
+    if (isConnected) return mongoose.connection;
 
+    try {
         let mongoUrl;
 
         if (process.env.NODE_ENV === "test") {
-            mongoServer = await MongoMemoryServer.create();
+            mongoServer = await MongoMemoryServer.create({
+                binary: { version: "7.0.14" },
+            });
             mongoUrl = mongoServer.getUri();
-            console.log("Conectando ao Mongo Memory Server (Teste)...");
+            console.log("Conectando ao MongoMemoryServer (teste)...");
         } else {
             mongoUrl = process.env.DB_CONNECTION_STRING;
             if (!mongoUrl) throw new Error("DB_CONNECTION_STRING não definida no .env");
-            console.log("Conectando ao Banco de Dados");
         }
 
-        await mongoose.connect(mongoUrl);
-        isConnected = true; // marca que já está conectado
-        console.log("Conectado ao MongoDB!");
+        await mongoose.connect(mongoUrl, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
+        isConnected = true;
+        console.log("Conectado ao Banco de Dados!");
         return mongoose.connection;
     } catch (error) {
         console.error("Erro ao conectar no MongoDB:", error.message);
@@ -36,12 +36,11 @@ async function conectaNaDatabase() {
     }
 }
 
-// Função para parar o servidor de teste
 async function disconnectTestDB() {
     if (mongoose.connection.readyState !== 0) {
         await mongoose.connection.dropDatabase();
         await mongoose.connection.close();
-        isConnected = false; // reseta flag para permitir nova conexão
+        isConnected = false;
     }
     if (mongoServer) await mongoServer.stop();
 }
