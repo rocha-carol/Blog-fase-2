@@ -7,6 +7,7 @@ import app from "../src/app.js";
 import { Posts } from "../src/models/Post.js";
 import { Usuario } from "../src/models/Usuario.js";
 
+jest.setTimeout(60000);
 let mongoServer;
 
 describe("Testes de Posts", () => {
