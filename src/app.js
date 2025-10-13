@@ -1,8 +1,8 @@
 import express from "express";
-
 import indexRoutes from "./routes/indexRoutes.js";
 import notFound from "./middleware/notFound.js";
 import errorHandler from "./middleware/errorHandler.js";
+import { setupSwagger } from "../swagger.js";
 
 const app = express();
 
@@ -14,6 +14,9 @@ app.get("/", (req, res) => res.status(200).send("Blog escolar"));
 
 // Rotas principais
 indexRoutes(app);
+
+// Swagger
+setupSwagger(app);
 
 // Middleware de rota não encontrada (404)
 app.use(notFound);

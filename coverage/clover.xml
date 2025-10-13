@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1760314946479" clover="3.2.0">
-  <project timestamp="1760314946482" name="All files">
-    <metrics statements="133" coveredstatements="111" conditionals="58" coveredconditionals="35" methods="19" coveredmethods="17" elements="210" coveredelements="163" complexity="0" loc="133" ncloc="133" packages="6" files="12" classes="12"/>
-    <package name="src">
-      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+<coverage generated="1760334669776" clover="3.2.0">
+  <project timestamp="1760334669776" name="All files">
+    <metrics statements="137" coveredstatements="115" conditionals="58" coveredconditionals="35" methods="20" coveredmethods="18" elements="215" coveredelements="168" complexity="0" loc="137" ncloc="137" packages="7" files="13" classes="13"/>
+    <package name="Blogversao2">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="swagger.js" path="C:\Users\carol\Blogversao2\swagger.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="Blogversao2.src">
+      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="app.js" path="C:\Users\carol\Blogversao2\src\app.js">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="7" count="2" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
         <line num="16" count="2" type="stmt"/>
         <line num="19" count="2" type="stmt"/>
         <line num="22" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="src.config">
+    <package name="Blogversao2.src.config">
       <metrics statements="21" coveredstatements="16" conditionals="12" coveredconditionals="6" methods="2" coveredmethods="2"/>
       <file name="dbConnect.js" path="C:\Users\carol\Blogversao2\src\config\dbConnect.js">
         <metrics statements="21" coveredstatements="16" conditionals="12" coveredconditionals="6" methods="2" coveredmethods="2"/>
@@ -41,7 +51,7 @@
         <line num="45" count="4" type="cond" truecount="1" falsecount="1"/>
       </file>
     </package>
-    <package name="src.controllers">
+    <package name="Blogversao2.src.controllers">
       <metrics statements="64" coveredstatements="58" conditionals="24" coveredconditionals="20" methods="11" coveredmethods="11"/>
       <file name="postController.js" path="C:\Users\carol\Blogversao2\src\controllers\postController.js">
         <metrics statements="49" coveredstatements="43" conditionals="16" coveredconditionals="12" methods="9" coveredmethods="9"/>
@@ -114,7 +124,7 @@
         <line num="49" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="src.middleware">
+    <package name="Blogversao2.src.middleware">
       <metrics statements="22" coveredstatements="11" conditionals="18" coveredconditionals="7" methods="3" coveredmethods="1"/>
       <file name="errorHandler.js" path="C:\Users\carol\Blogversao2\src\middleware\errorHandler.js">
         <metrics statements="6" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -148,7 +158,7 @@
         <line num="41" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="src.models">
+    <package name="Blogversao2.src.models">
       <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="Post.js" path="C:\Users\carol\Blogversao2\src\models\Post.js">
         <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="1"/>
@@ -164,7 +174,7 @@
         <line num="13" count="3" type="stmt"/>
       </file>
     </package>
-    <package name="src.routes">
+    <package name="Blogversao2.src.routes">
       <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="indexRoutes.js" path="C:\Users\carol\Blogversao2\src\routes\indexRoutes.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -174,19 +184,19 @@
       </file>
       <file name="postsRoutes.js" path="C:\Users\carol\Blogversao2\src\routes\postsRoutes.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="80" count="2" type="stmt"/>
+        <line num="114" count="2" type="stmt"/>
+        <line num="137" count="2" type="stmt"/>
       </file>
       <file name="validacaoRoutes.js" path="C:\Users\carol\Blogversao2\src\routes\validacaoRoutes.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="4" count="2" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
       </file>
     </package>
   </project>
