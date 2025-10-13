@@ -1,10 +1,5 @@
-/*import jwt from "jsonwebtoken";*/
-
 import { Usuario } from "../models/Usuario.js";
 import bcrypt from "bcryptjs";
-
-// Middleware para verificar se o usuário enviou um token válido
-
 
 // Middleware para validar professor
 async function validarProfessor(req, res, next) {

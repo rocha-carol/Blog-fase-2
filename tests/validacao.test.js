@@ -19,9 +19,7 @@ describe("ValidacaoController", () => {
         jest.clearAllMocks();
     });
 
-    // ---------------------------------------------------
     // TESTE: Cadastro de usuário
-    // ---------------------------------------------------
     describe("cadastrarUsuario", () => {
         it("deve cadastrar um novo usuário com sucesso", async () => {
             req.body = {
@@ -74,9 +72,7 @@ describe("ValidacaoController", () => {
         });
     });
 
-    // ---------------------------------------------------
     // TESTE: Login de usuário
-    // ---------------------------------------------------
     describe("login", () => {
         it("deve retornar erro 400 se email ou senha não forem enviados", async () => {
             req.body = { email: "" };

@@ -36,7 +36,7 @@ describe("Testes de Posts", () => {
     });
 
     afterEach(async () => {
-        // Limpa apenas os posts, não usuários
+        // Limpa apenas os posts
         await Posts.deleteMany({});
     });
 
