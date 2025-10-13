@@ -34,7 +34,7 @@ jobs:
             echo "tag=latest" >> $GITHUB_OUTPUT
           else
             echo "tag=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
-          if
+          fi
 
       - name: Build e push da imagem
         uses: docker/build-push-action@v4
