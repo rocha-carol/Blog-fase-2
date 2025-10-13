@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   app:
     image: carolinesant/blog:desenvolvimento
@@ -5,9 +7,8 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-    environment:
-      - DB_CONNECTION_STRING
-      - PORT
+    env_file:
+      - .env
     networks:
       - blog_network
 
