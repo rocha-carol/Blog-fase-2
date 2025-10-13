@@ -5,45 +5,41 @@ const validacaoRoutes = express.Router();
 
 /**
  * @swagger
- * /usuario/login:
+ * /usuario/registro:
  *   post:
- *     summary: Login de usuário
+ *     summary: Cadastro de usuário
+ *     tags: [usuario]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               senha:
- *                 type: string
+ *             $ref: '#/components/schemas/User'
  *     responses:
- *       200:
- *         description: Login realizado com sucesso
+ *       201:
+ *         description: Usuário criado com sucesso
+ *       400:
+ *         description: Dados inválidos
  */
 validacaoRoutes.post("/registro", validacaoController.cadastrarUsuario);
 
 /**
  * @swagger
- * /usuario/registro:
+ * /usuario/login:
  *   post:
- *     summary: Registra um novo usuário
+ *     summary: Login de usuário
+ *     tags: [usuario]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               senha:
- *                 type: string
+ *             $ref: '#/components/schemas/User'
  *     responses:
- *       201:
- *         description: Usuário registrado com sucesso
+ *       200:
+ *         description: Login bem-sucedido
+ *       401:
+ *         description: Email ou senha incorretos
  */
 validacaoRoutes.post("/login", validacaoController.login);
 

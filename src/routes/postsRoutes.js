@@ -6,108 +6,173 @@ const postsRoutes = express.Router();
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - email
+ *         - senha
+ *       properties:
+ *         email:
+ *           type: string
+ *           example: usuario@email.com
+ *         senha:
+ *           type: string
+ *           example: 123456
+ *     Post:
+ *       type: object
+ *       required:
+ *         - email
+ *         - senha
+ *         - title
+ *         - content
+ *       properties:
+ *         email:
+ *           type: string
+ *           example: usuario@email.com
+ *         senha:
+ *           type: string
+ *           example: 123456
+ *         title:
+ *           type: string
+ *           example: Meu novo post
+ *         content:
+ *           type: string
+ *           example: Conteúdo do post
+ */
+
+/**
+ * @swagger
  * /posts:
  *   get:
- *     summary: Lista todos os posts
- *     description: Retorna todos os posts disponíveis para alunos e professores
+ *     summary: Lista todas as postagens
+ *     tags: [Posts]
  *     responses:
  *       200:
- *         description: Lista de posts
+ *         description: Lista de posts retornada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Post'
  */
 postsRoutes.get("/", PostsController.listarPosts);
+
+/**
+ * @swagger
+ * /posts/{id}:
+ *   get:
+ *     summary: Retorna uma postagem específica
+ *     tags: [Posts]
+ *     operationId: getPostById
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: 670a12bd9b3e
+ *         description: ID da postagem
+ *     responses:
+ *       200:
+ *         description: Post encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       404:
+ *         description: Post não encontrado
+ */
+
+postsRoutes.get("/:id", PostsController.lerPost);
+
 
 /**
  * @swagger
  * /posts/search:
  *   get:
  *     summary: Busca posts por palavra-chave
- *     description: Permite buscar posts filtrando por título ou conteúdo
+ *     tags: [Posts]
  *     parameters:
  *       - in: query
- *         name: q
+ *         name: query
  *         schema:
  *           type: string
- *         description: Termo de busca
+ *           example: post
+ *         required: true
+ *         description: Texto a ser buscado em título ou conteúdo
  *     responses:
  *       200:
- *         description: Lista de posts filtrados
+ *         description: Resultados da busca
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Post'
+ *       404:
+ *         description: Nenhum post encontrado
  */
 postsRoutes.get("/search", PostsController.buscarPosts);
 
-/**
- * @swagger
- * /posts/{id}:
- *   get:
- *     summary: Retorna um post pelo ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: ID do post
- *     responses:
- *       200:
- *         description: Post encontrado
- *       404:
- *         description: Post não encontrado
- */
-postsRoutes.get("/:id", PostsController.lerPost);
 
 /**
  * @swagger
  * /posts:
  *   post:
- *     summary: Cria um novo post
- *     description: Apenas professores podem criar posts
+ *     summary: Cria uma nova postagem
+ *     tags: [Posts]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               titulo:
- *                 type: string
- *               conteudo:
- *                 type: string
+ *             $ref: '#/components/schemas/Post'
  *     responses:
  *       201:
  *         description: Post criado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *         links:
+ *           GetCreatedPost:
+ *             operationId: getPostById
+ *             parameters:
+ *               id: "$response.body#/id"
+ *             description: Retorna o post criado
  *       401:
- *         description: Usuário não autorizado
+ *         description: Usuário não cadastrado ou senha incorreta
  */
+
 postsRoutes.post("/", validarProfessor, PostsController.criarPost);
 
 /**
  * @swagger
  * /posts/{id}:
  *   put:
- *     summary: Atualiza um post existente
- *     description: Apenas professores podem editar posts
+ *     summary: Atualiza uma postagem existente
+ *     tags: [Posts]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID do post a ser editado
+ *           example: 670a12bd9b3e
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               titulo:
- *                 type: string
- *               conteudo:
- *                 type: string
+ *             $ref: '#/components/schemas/Post'
  *     responses:
  *       200:
- *         description: Post atualizado
+ *         description: Post atualizado com sucesso
  *       401:
- *         description: Usuário não autorizado
+ *         description: Usuário não cadastrado ou senha incorreta
  *       404:
  *         description: Post não encontrado
  */
@@ -117,20 +182,37 @@ postsRoutes.put("/:id", validarProfessor, PostsController.editarPost);
  * @swagger
  * /posts/{id}:
  *   delete:
- *     summary: Exclui um post
- *     description: Apenas professores podem excluir posts
+ *     summary: Exclui uma postagem existente
+ *     tags: [Posts]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID do post a ser excluído
+ *           example: 670a12bd9b3e
+ *         description: ID do post
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - senha
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: usuario@email.com
+ *               senha:
+ *                 type: string
+ *                 example: 123456
  *     responses:
  *       200:
  *         description: Post excluído com sucesso
  *       401:
- *         description: Usuário não autorizado
+ *         description: Usuário não cadastrado ou senha incorreta
  *       404:
  *         description: Post não encontrado
  */
