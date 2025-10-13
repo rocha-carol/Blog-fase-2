@@ -24,6 +24,7 @@ jobs:
             echo "tag=latest" >> $GITHUB_OUTPUT
           else
             echo "tag=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+          if
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.7
