@@ -16,12 +16,13 @@ class PostsController {
   static async listarPosts(req, res) {
     try {
       // Busca posts sem usar populate de autor
-      const posts = await Posts.find().lean();
+      const posts = await Posts.find().lean().sort({ createdAt: -1 });
 
       const postsFormatados = posts.map(post => ({
         id: post._id,
         titulo: post.titulo,
         conteudo: post.conteudo.substring(0, 200) + "...",
+        areaDoConhecimento: post.areaDoConhecimento,
         "criado em": formatarData(post.createdAt)
       }));
 
@@ -42,6 +43,7 @@ class PostsController {
       res.json({
         titulo: post.titulo,
         conteudo: post.conteudo,
+        areaDoConhecimento: post.areaDoConhecimento,
         "criado em": formatarData(post.createdAt)
       });
     } catch (err) {
@@ -67,8 +69,10 @@ class PostsController {
       await novoPost.save();
 
       res.status(201).json({
+        message: "Post criado com sucesso",
         titulo: novoPost.titulo,
         conteudo: novoPost.conteudo.substring(0, 100) + "...",
+        areaDoConhecimento: novoPost.areaDoConhecimento,
         "criado em": formatarData(novoPost.createdAt)
       });
     } catch (err) {
@@ -91,8 +95,10 @@ class PostsController {
       await post.save();
 
       res.json({
+        message: "Post atualizado com sucesso",
         titulo: post.titulo,
         conteudo: post.conteudo,
+        areaDoConhecimento: post.areaDoConhecimento,
         "atualizado em": formatarData(post.updatedAt)
       });
     } catch (err) {
@@ -104,15 +110,15 @@ class PostsController {
   static async excluirPost(req, res) {
     try {
       const { id } = req.params;
-
       const post = await Posts.findById(id);
-      if (!post) return res.status(404).json({ message: "Post não encontrado" });
-
+      if (!post) {
+        return res.status(404).json({ message: "Post não encontrado" });
+      }
+      // Retorna o post antes de deletar
       await post.deleteOne();
-
-      res.json({ message: "Post excluído com sucesso" });
+      return res.status(200).json({ message: "Post excluído com sucesso", post });
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      return res.status(500).json({ message: err.message });
     }
   }
 
