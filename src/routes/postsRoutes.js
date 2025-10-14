@@ -137,7 +137,7 @@ postsRoutes.get("/search", PostsController.buscarPosts);
  *         schema:
  *           type: string
  *           example: teste
- *         description: busca por titulo, conteudo ou areaDoConhecimento
+ *         description: busca por ID do post
  *     responses:
  *       200:
  *         description: Post encontrado
