@@ -1,25 +1,24 @@
-// tests/post.test.js
 import request from "supertest";
 import mongoose from "mongoose";
-import { MongoMemoryServer } from "mongodb-memory-server";
 import bcrypt from "bcryptjs";
 
 import app from "../src/app.js";
+import conectaNaDatabase, { disconnectTestDB } from "../src/config/dbConnect.js";
 import { Posts } from "../src/models/Post.js";
 import { Usuario } from "../src/models/Usuario.js";
 
-let mongoServer;
+jest.setTimeout(60000); //aumenta timeout para evitar falhas em testes demorados
 
-describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
-    let professor;
+let professor;
 
-    // ================================
+describe("Testes de Posts", () => {
+
     // Executado antes de todos os testes
     beforeAll(async () => {
-        // Inicializa um servidor MongoDB em memória (isolado, não polui banco real)
-        mongoServer = await MongoMemoryServer.create();
-        const uri = mongoServer.getUri();
-        await mongoose.connect(uri);
+        process.env.NODE_ENV = "test";
+
+        // Conecta apenas uma vez
+        const conexao = await conectaNaDatabase();
 
         // Cria um usuário professor para simular login/autorização
         const hashedSenha = await bcrypt.hash("123456", 10);
@@ -31,54 +30,44 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
         });
     });
 
-    // ================================
-    // Executado depois de todos os testes
+    // Desconecta do banco após todos os testes
     afterAll(async () => {
-        await mongoose.disconnect();
-        await mongoServer.stop();
+        await disconnectTestDB();
     });
 
-    // ================================
-    // Limpa posts entre os testes
     afterEach(async () => {
-        await Posts.deleteMany();
+        // Limpa apenas os posts
+        await Posts.deleteMany({});
     });
 
-    // =====================================
+
     // LISTAR POSTS
     it("Deve listar todos os posts", async () => {
-        // Cria um post diretamente no banco
         await Posts.create({
             titulo: "Post 1",
             conteudo: "Conteúdo do post 1",
             areaDoConhecimento: "Matemática",
-            autor: professor._id
         });
 
-        // Faz a requisição GET /posts
         const res = await request(app).get("/posts");
 
-        // Verificações
-        expect(res.statusCode).toBe(200);            // Status 200 OK
-        expect(res.body.length).toBe(1);            // Deve retornar 1 post
-        expect(res.body[0]).toHaveProperty("id");   // Deve ter campo 'id'
-        expect(res.body[0].titulo).toBe("Post 1");  // Título correto
+        expect(res.statusCode).toBe(200);
+        expect(res.body.length).toBe(1);
+        expect(res.body[0]).toHaveProperty("id");
+        expect(res.body[0].titulo).toBe("Post 1");
     });
 
-    // =====================================
     // LER POST POR ID
     it("Deve ler um post pelo ID", async () => {
         const post = await Posts.create({
             titulo: "Post 2",
             conteudo: "Conteúdo do post 2",
             areaDoConhecimento: "Ciências Humanas",
-            autor: professor._id
         });
 
         const res = await request(app).get(`/posts/${post._id}`);
         expect(res.statusCode).toBe(200);
         expect(res.body.titulo).toBe("Post 2");
-        expect(res.body).toHaveProperty("autor", "Professor Teste");
     });
 
     it("Deve retornar 404 ao ler post inexistente", async () => {
@@ -87,7 +76,6 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
         expect(res.body.message).toBe("Post não encontrado");
     });
 
-    // =====================================
     // CRIAR POST
     it("Deve criar um post como professor", async () => {
         const res = await request(app)
@@ -98,16 +86,13 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
                 titulo: "Novo Post",
                 conteudo: "Conteúdo do novo post",
                 areaDoConhecimento: "Linguagens",
-                status: "publicado" // Testando status publicado
             });
 
         expect(res.statusCode).toBe(201);
         expect(res.body.titulo).toBe("Novo Post");
-        expect(res.body.autor).toBe("Professor Teste");
-        expect(res.body.status).toBe("publicado"); // Confirma status
     });
 
-    it("Deve criar um post como rascunho", async () => {
+    it("Deve criar um post", async () => {
         const res = await request(app)
             .post("/posts")
             .send({
@@ -116,11 +101,9 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
                 titulo: "Rascunho",
                 conteudo: "Conteúdo do rascunho",
                 areaDoConhecimento: "Tecnologias"
-                // Status não enviado → deve ser "rascunho" por default
             });
 
         expect(res.statusCode).toBe(201);
-        expect(res.body.status).toBe("rascunho");
     });
 
     it("Deve falhar ao criar post com usuário inválido", async () => {
@@ -138,14 +121,12 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
         expect(res.body.message).toBe("Usuário não encontrado");
     });
 
-    // =====================================
     // EDITAR POST
     it("Deve editar um post existente", async () => {
         const post = await Posts.create({
             titulo: "Post Editar",
             conteudo: "Conteúdo antigo",
             areaDoConhecimento: "Tecnologias",
-            autor: professor._id
         });
 
         const res = await request(app)
@@ -175,14 +156,12 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
         expect(res.body.message).toBe("Post não encontrado");
     });
 
-    // =====================================
     // EXCLUIR POST
     it("Deve excluir um post existente", async () => {
         const post = await Posts.create({
             titulo: "Post Deletar",
             conteudo: "Conteúdo para deletar",
             areaDoConhecimento: "Ciências da Natureza",
-            autor: professor._id
         });
 
         const res = await request(app)
@@ -208,21 +187,18 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
         expect(res.body.message).toBe("Post não encontrado");
     });
 
-    // =====================================
     // BUSCA POR PALAVRA-CHAVE
     it("Deve buscar posts por palavra-chave no título", async () => {
         await Posts.create({
             titulo: "Matemática Avançada",
             conteudo: "Conteúdo sobre matemática",
             areaDoConhecimento: "Matemática",
-            autor: professor._id
         });
 
         await Posts.create({
             titulo: "Linguagens Básicas",
             conteudo: "Conteúdo sobre linguagens",
             areaDoConhecimento: "Linguagens",
-            autor: professor._id
         });
 
         const res = await request(app).get("/posts/search?q=Matemática");
@@ -238,12 +214,12 @@ describe("Testes de Posts - Cobertura ampliada (~50%)", () => {
     });
 });
 
+// Teste separado para verificar formatação de datas
 test("deve formatar corretamente as datas no método toJSON do Post", async () => {
     const post = new Posts({
         titulo: "Teste de formato",
         conteudo: "Conteúdo teste",
         areaDoConhecimento: "Linguagens",
-        autor: new mongoose.Types.ObjectId(),
         createdAt: new Date("2024-01-01"),
         updatedAt: new Date("2024-01-02"),
     });

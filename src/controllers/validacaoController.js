@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import { Usuario } from "../models/Usuario.js";
 
 
-class AutenticacaoController {
+class ValidacaoController {
     // Registrar usuário  
     static async cadastrarUsuario(req, res) {
         try {
@@ -51,13 +51,4 @@ class AutenticacaoController {
     }
 };
 
-export default AutenticacaoController;
-/* Gera o token com id e role do usuário
-            const token = jwt.sign(
-                { id: usuarioCadastrado._id, role: usuarioCadastrado.role },
-                process.env.JWT_SECRET,
-                { expiresIn: "1h" }
-            );
-
-            // Retorna o token
-            return res.status(200).json({ token });*/
+export default ValidacaoController;

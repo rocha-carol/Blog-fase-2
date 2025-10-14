@@ -1,7 +1,6 @@
 module.exports = {
-    testEnvironment: "node",
     transform: {
-        "^.+\\.js$": "babel-jest"
+        "^.+\\.m?js$": ["babel-jest", { configFile: "./babel.config.cjs" }]
     },
-    testPathIgnorePatterns: ["/node_modules/"]
+    testEnvironment: "node"
 };

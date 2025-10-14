@@ -1,27 +1,17 @@
-version: '3.8'
+version: "3.9"
 
 services:
   app:
-    build: .
-    container_name: blog_api
-    restart: always
+    image: carolinesant/blog:desenvolvimento
+    container_name: blog_app
+    restart: unless-stopped
     ports:
       - "3000:3000"
-    env_file: .env
-    depends_on:
-      - mongo
-    volumes:
-      - .:/app
-    command: npm start
+    env_file:
+      - .env
+    networks:
+      - blog_network
 
-  mongo:
-    image: mongo:6
-    container_name: blog_mongo
-    restart: always
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
-
-volumes:
-  mongo_data:
+networks:
+  blog_network:
+    driver: bridge

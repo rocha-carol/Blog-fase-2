@@ -1,9 +1,49 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
+import { MongoMemoryServer } from "mongodb-memory-server";
+
+let mongoServer;
+let isConnected = false; // evita reconexões
 
 async function conectaNaDatabase() {
-    mongoose.connect(process.env.DB_CONNECTION_STRING);
+    if (isConnected) return mongoose.connection;
 
-    return mongoose.connection;
-};
+    try {
+        let mongoUrl;
+
+        if (process.env.NODE_ENV === "test") {
+            mongoServer = await MongoMemoryServer.create({
+                binary: { version: "7.0.14" },
+            });
+            mongoUrl = mongoServer.getUri();
+            console.log("Conectando ao MongoMemoryServer (teste)...");
+        } else {
+            mongoUrl = process.env.DB_CONNECTION_STRING;
+            if (!mongoUrl) throw new Error("DB_CONNECTION_STRING não definida no .env");
+        }
+
+        await mongoose.connect(mongoUrl, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
+        isConnected = true;
+        console.log("Conectado ao Banco de Dados!");
+        return mongoose.connection;
+    } catch (error) {
+        console.error("Erro ao conectar no MongoDB:", error.message);
+        if (process.env.NODE_ENV !== "test") process.exit(1);
+        throw error;
+    }
+}
+
+async function disconnectTestDB() {
+    if (mongoose.connection.readyState !== 0) {
+        await mongoose.connection.dropDatabase();
+        await mongoose.connection.close();
+        isConnected = false;
+    }
+    if (mongoServer) await mongoServer.stop();
+}
 
 export default conectaNaDatabase;
+export { disconnectTestDB };
