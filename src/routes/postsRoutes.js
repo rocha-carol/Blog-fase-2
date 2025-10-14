@@ -8,32 +8,32 @@ const postsRoutes = express.Router();
  * @swagger
  * components:
  *   schemas:
- *     Usuario/registro:
+ *     UsuarioRegistro:
  *       type: object
  *       required:
- *        - nome
+ *         - nome
  *         - email
  *         - senha
  *         - role
  *       properties:
- *          nome:
+ *         nome:
  *           type: string
  *           example: Nome do Usuário
- *           email:
+ *         email:
  *           type: string
  *           example: usuario@email.com
- *           senha:
+ *         senha:
  *           type: string
  *           example: 123456
- *           role:
+ *         role:
  *           type: string
  *           example: professor
- *       usuario/login:
- *          type: object
- *          required:
+ *     UsuarioLogin:
+ *       type: object
+ *       required:
  *         - email
- *         - senha 
- *         properties:
+ *         - senha
+ *       properties:
  *         email:
  *           type: string
  *           example: usuario@email.com
@@ -43,150 +43,30 @@ const postsRoutes = express.Router();
  *     Post:
  *       type: object
  *       required:
- *         - email
- *         - senha
- *         - title
- *         - content
+ *         - titulo
+ *         - conteudo
+ *         - areaDoConhecimento
  *       properties:
- *         email:
+ *         id:
  *           type: string
- *           example: usuario@email.com
- *         senha:
- *           type: string
- *           example: 123456
- *         title:
+ *           example: 670a12bd9b3e
+ *         titulo:
  *           type: string
  *           example: Meu novo post
- *         content:
+ *         conteudo:
  *           type: string
  *           example: Conteúdo do post
- *        areaDoConhecimento:
+ *         areaDoConhecimento:
  *           type: string
  *           example: Tecnologias
- *      createdAt:
- *        type: string
- *        format: date-time
- *        example: 2023-01-01T00:00:00Z
- *      updatedAt:
- *        type: string
- *        format: date-time
- *        example: 2023-01-01T00:00:00Z
- *   post criar:
- *     type: object
- *     required:
- *       - role:
- *         type: string
- *         example: professor
- *       - login:
- *         type: string
- *         example: usuario@email.com
- *       - email:
- *         type: string
- *         example: usuario@email.com
- *       - senha:
- *         type: string
- *         example: 123456
- *     properties:
- *       email:
- *         type: string
- *         example: usuario@email.com
- *       senha:
- *         type: string
- *         example: 123456  
- *      post criado:
- *        type: object
- * role: string
- *         example: professor
- *       - login:
- *         type: string
- *         example: usuario@email.com
- *       - senha:
- *         type: string
- *         example: 123456
- *     properties:
- *       email:
- *         type: string
- *         example: usuario@email.com
- *       senha:
- *         type: string
- *         example: 123456
- *      post criado:
- *        type: object
- *     properties:
- *       id:
- *         type: string
- *         example: 670a12bd9b3e
- *       titulo:
- *         type: string
- *         example: Meu novo post
- *       conteudo:
- *         type: string
- *         example: Conteúdo do post
- *       areaDoConhecimento:
- *         type: string
- *         example: Tecnologias
- *       createdAt:
- *         type: string
- *         format: date-time
- *         example: 2023-01-01T00:00:00Z
- *       updatedAt:
- *         type: string
- *         format: date-time
- *         example: 2023-01-01T00:00:00Z
- * post atualizado:
- * role: string
- *         example: professor
- *       - login:
- *         type: string
- *         example: usuario@email.com
- *      - senha:
- *        type: string
- *        example: 123456   
- *   type: object
- * properties:
- *   id:
- *     type: string
- *     example: 670a12bd9b3e
- *   titulo:
- *     type: string
- *     example: Meu novo post
- *   conteudo:
- *     type: string
- *     example: Conteúdo do post
- *   areaDoConhecimento:
- *     type: string
- *     example: Tecnologias
- *   createdAt:
- *     type: string
- *     format: date-time
- *     example: 2023-01-01T00:00:00Z
- *   updatedAt:
- *     type: string
- *     format: date-time
- *     example: 2023-01-01T00:00:00Z
- *   post excluído:
- *     type: object
- *     properties:
- *       id:
- *         type: string
- *         example: 670a12bd9b3e
- *       titulo:
- *         type: string
- *         example: Meu novo post
- *       conteudo:
- *         type: string
- *         example: Conteúdo do post
- *       areaDoConhecimento:
- *         type: string
- *         example: Tecnologias
- *       createdAt:
- *         type: string
- *         format: date-time
- *         example: 2023-01-01T00:00:00Z
- *       updatedAt:
- *         type: string
- *         format: date-time
- *         example: 2023-01-01T00:00:00Z
+ *         CriadoEm:
+ *           type: string
+ *           format: date-time
+ *           example: 2023-01-01T00:00:00Z
+ *         AtualizadoEm:
+ *           type: string
+ *           format: date-time
+ *           example: 2023-01-01T00:00:00Z
  */
 
 /**
@@ -209,16 +89,16 @@ postsRoutes.get("/", PostsController.listarPosts);
 
 /**
  * @swagger
- * /posts/search?q={query}:
+ * /posts/search:
  *   get:
  *     summary: Busca posts por palavra-chave
  *     tags: [Posts]
  *     parameters:
  *       - in: query
- *         name: query
+ *         name: q
  *         schema:
  *           type: string
- *           example: post
+ *           example: Meu
  *         required: true
  *         description: Texto a ser buscado em título ou conteúdo
  *     responses:
@@ -229,11 +109,19 @@ postsRoutes.get("/", PostsController.listarPosts);
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Post/search?q={query}'
+ *                 $ref: '#/components/schemas/Post'
  *       404:
  *         description: Nenhum post encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Nenhum post encontrado
  */
-postsRoutes.get("/search?q=", PostsController.buscarPosts);
+postsRoutes.get("/search", PostsController.buscarPosts);
 
 /**
  * @swagger
@@ -248,8 +136,8 @@ postsRoutes.get("/search?q=", PostsController.buscarPosts);
  *         required: true
  *         schema:
  *           type: string
- *           example: 670a12bd9b3e
- *         description: ID da postagem
+ *           example: teste
+ *         description: busca por titulo, conteudo ou areaDoConhecimento
  *     responses:
  *       200:
  *         description: Post encontrado
@@ -259,46 +147,26 @@ postsRoutes.get("/search?q=", PostsController.buscarPosts);
  *               $ref: '#/components/schemas/Post'
  *       404:
  *         description: Post não encontrado
- */
-
-postsRoutes.get("/:id", PostsController.lerPost);
-
-
-/**
- * @swagger
- * /posts/search:
- *   get:
- *     summary: Busca posts por palavra-chave
- *     tags: [Posts]
- *     parameters:
- *       - in: query
- *         name: query
- *         schema:
- *           type: string
- *           example: post
- *         required: true
- *         description: Texto a ser buscado em título ou conteúdo
- *     responses:
- *       200:
- *         description: Resultados da busca
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Post'
- *       404:
- *         description: Nenhum post encontrado
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Post não encontrado
  */
-postsRoutes.get("/search", PostsController.buscarPosts);
-
+postsRoutes.get("/:id", PostsController.lerPost);
 
 /**
  * @swagger
  * /posts:
  *   post:
  *     summary: Cria uma nova postagem
- *     tags: [Posts]
+ *     description: Requer autenticação. Apenas usuários cadastrados como professores podem criar posts. Informe email e senha válidos.
+ *     tags: [Acesso restrito - Professores]
+ *     security:
+ *       - BasicAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -320,8 +188,15 @@ postsRoutes.get("/search", PostsController.buscarPosts);
  *             description: Retorna o post criado
  *       401:
  *         description: Usuário não cadastrado ou senha incorreta
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Usuário não cadastrado ou senha incorreta
  */
-
 postsRoutes.post("/", validarProfessor, PostsController.criarPost);
 
 /**
@@ -329,7 +204,10 @@ postsRoutes.post("/", validarProfessor, PostsController.criarPost);
  * /posts/{id}:
  *   put:
  *     summary: Atualiza uma postagem existente
- *     tags: [Posts]
+ *     description: Requer autenticação. Apenas usuários cadastrados como professores podem editar posts. Informe email e senha válidos.
+ *     tags: [Acesso restrito - Professores]
+ *     security:
+ *       - BasicAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -346,10 +224,30 @@ postsRoutes.post("/", validarProfessor, PostsController.criarPost);
  *     responses:
  *       200:
  *         description: Post atualizado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
  *       401:
  *         description: Usuário não cadastrado ou senha incorreta
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Usuário não cadastrado ou senha incorreta
  *       404:
  *         description: Post não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Post não encontrado
  */
 postsRoutes.put("/:id", validarProfessor, PostsController.editarPost);
 
@@ -358,7 +256,10 @@ postsRoutes.put("/:id", validarProfessor, PostsController.editarPost);
  * /posts/{id}:
  *   delete:
  *     summary: Exclui uma postagem existente
+ *     description: Exclui o post pelo ID informado. Mostra o post correspondente ao ID antes da exclusão e retorna apenas a mensagem de sucesso.
  *     tags: [Acesso restrito - Professores]
+ *     security:
+ *       - BasicAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -367,27 +268,47 @@ postsRoutes.put("/:id", validarProfessor, PostsController.editarPost);
  *           type: string
  *           example: 670a12bd9b3e
  *         description: ID do post
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - email
- *               - senha
- *             properties:
- *               email:
- *                 type: string
- *                 example: "true"
- * description: Realmente deseja excluir este post?
  *     responses:
  *       200:
  *         description: Post excluído com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Post excluído com sucesso
  *       401:
  *         description: Usuário não cadastrado ou senha incorreta
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Usuário não cadastrado ou senha incorreta
+ *       403:
+ *         description: Acesso restrito a professores
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Acesso restrito a professores
  *       404:
  *         description: Post não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Post não encontrado
  */
 postsRoutes.delete("/:id", validarProfessor, PostsController.excluirPost);
 
