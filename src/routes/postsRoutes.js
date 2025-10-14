@@ -8,12 +8,32 @@ const postsRoutes = express.Router();
  * @swagger
  * components:
  *   schemas:
- *     User:
+ *     Usuario/registro:
  *       type: object
  *       required:
+ *        - nome
  *         - email
  *         - senha
+ *         - role
  *       properties:
+ *          nome:
+ *           type: string
+ *           example: Nome do Usuário
+ *           email:
+ *           type: string
+ *           example: usuario@email.com
+ *           senha:
+ *           type: string
+ *           example: 123456
+ *           role:
+ *           type: string
+ *           example: professor
+ *       usuario/login:
+ *          type: object
+ *          required:
+ *         - email
+ *         - senha 
+ *         properties:
  *         email:
  *           type: string
  *           example: usuario@email.com
@@ -40,6 +60,133 @@ const postsRoutes = express.Router();
  *         content:
  *           type: string
  *           example: Conteúdo do post
+ *        areaDoConhecimento:
+ *           type: string
+ *           example: Tecnologias
+ *      createdAt:
+ *        type: string
+ *        format: date-time
+ *        example: 2023-01-01T00:00:00Z
+ *      updatedAt:
+ *        type: string
+ *        format: date-time
+ *        example: 2023-01-01T00:00:00Z
+ *   post criar:
+ *     type: object
+ *     required:
+ *       - role:
+ *         type: string
+ *         example: professor
+ *       - login:
+ *         type: string
+ *         example: usuario@email.com
+ *       - email:
+ *         type: string
+ *         example: usuario@email.com
+ *       - senha:
+ *         type: string
+ *         example: 123456
+ *     properties:
+ *       email:
+ *         type: string
+ *         example: usuario@email.com
+ *       senha:
+ *         type: string
+ *         example: 123456  
+ *      post criado:
+ *        type: object
+ * role: string
+ *         example: professor
+ *       - login:
+ *         type: string
+ *         example: usuario@email.com
+ *       - senha:
+ *         type: string
+ *         example: 123456
+ *     properties:
+ *       email:
+ *         type: string
+ *         example: usuario@email.com
+ *       senha:
+ *         type: string
+ *         example: 123456
+ *      post criado:
+ *        type: object
+ *     properties:
+ *       id:
+ *         type: string
+ *         example: 670a12bd9b3e
+ *       titulo:
+ *         type: string
+ *         example: Meu novo post
+ *       conteudo:
+ *         type: string
+ *         example: Conteúdo do post
+ *       areaDoConhecimento:
+ *         type: string
+ *         example: Tecnologias
+ *       createdAt:
+ *         type: string
+ *         format: date-time
+ *         example: 2023-01-01T00:00:00Z
+ *       updatedAt:
+ *         type: string
+ *         format: date-time
+ *         example: 2023-01-01T00:00:00Z
+ * post atualizado:
+ * role: string
+ *         example: professor
+ *       - login:
+ *         type: string
+ *         example: usuario@email.com
+ *      - senha:
+ *        type: string
+ *        example: 123456   
+ *   type: object
+ * properties:
+ *   id:
+ *     type: string
+ *     example: 670a12bd9b3e
+ *   titulo:
+ *     type: string
+ *     example: Meu novo post
+ *   conteudo:
+ *     type: string
+ *     example: Conteúdo do post
+ *   areaDoConhecimento:
+ *     type: string
+ *     example: Tecnologias
+ *   createdAt:
+ *     type: string
+ *     format: date-time
+ *     example: 2023-01-01T00:00:00Z
+ *   updatedAt:
+ *     type: string
+ *     format: date-time
+ *     example: 2023-01-01T00:00:00Z
+ *   post excluído:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: string
+ *         example: 670a12bd9b3e
+ *       titulo:
+ *         type: string
+ *         example: Meu novo post
+ *       conteudo:
+ *         type: string
+ *         example: Conteúdo do post
+ *       areaDoConhecimento:
+ *         type: string
+ *         example: Tecnologias
+ *       createdAt:
+ *         type: string
+ *         format: date-time
+ *         example: 2023-01-01T00:00:00Z
+ *       updatedAt:
+ *         type: string
+ *         format: date-time
+ *         example: 2023-01-01T00:00:00Z
  */
 
 /**
@@ -59,6 +206,34 @@ const postsRoutes = express.Router();
  *                 $ref: '#/components/schemas/Post'
  */
 postsRoutes.get("/", PostsController.listarPosts);
+
+/**
+ * @swagger
+ * /posts/search?q={query}:
+ *   get:
+ *     summary: Busca posts por palavra-chave
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         schema:
+ *           type: string
+ *           example: post
+ *         required: true
+ *         description: Texto a ser buscado em título ou conteúdo
+ *     responses:
+ *       200:
+ *         description: Resultados da busca
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Post/search?q={query}'
+ *       404:
+ *         description: Nenhum post encontrado
+ */
+postsRoutes.get("/search?q=", PostsController.buscarPosts);
 
 /**
  * @swagger
@@ -183,7 +358,7 @@ postsRoutes.put("/:id", validarProfessor, PostsController.editarPost);
  * /posts/{id}:
  *   delete:
  *     summary: Exclui uma postagem existente
- *     tags: [Posts]
+ *     tags: [Acesso restrito - Professores]
  *     parameters:
  *       - in: path
  *         name: id
@@ -204,10 +379,8 @@ postsRoutes.put("/:id", validarProfessor, PostsController.editarPost);
  *             properties:
  *               email:
  *                 type: string
- *                 example: usuario@email.com
- *               senha:
- *                 type: string
- *                 example: 123456
+ *                 example: "true"
+ * description: Realmente deseja excluir este post?
  *     responses:
  *       200:
  *         description: Post excluído com sucesso
