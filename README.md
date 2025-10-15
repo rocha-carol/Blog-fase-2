@@ -25,13 +25,13 @@ Segurança e Criptografia
 
 Próximos Passos / Escalabilidade
 
-1️⃣ Visão Geral
+Visão Geral
 
 A Blog API é uma aplicação RESTful desenvolvida em Node.js com Express e MongoDB, voltada para gerenciamento de postagens e usuários com autenticação simples e criptografia de senha.
 O projeto foi projetado com foco em boas práticas, modularização, testes automatizados e pipelines CI/CD.
 
-2️⃣ Setup Inicial
-🔧 Pré-requisitos
+ Setup Inicial
+Pré-requisitos
 
 Node.js 18+
 
@@ -43,7 +43,7 @@ Conta no MongoDB Atlas
 
 Conta no GitHub (para CI/CD)
 
-📦 Instalação
+Instalação
 git clone https://github.com/<seu-usuario>/blog.git
 cd blog
 npm install
@@ -54,7 +54,7 @@ Crie um arquivo .env na raiz:
 PORT=3000
 MONGO_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/blog
 
-3️⃣ Estrutura de Pastas
+Estrutura de Pastas
 blog/
 │
 ├── src/
@@ -85,7 +85,7 @@ blog/
 ├── package.json
 └── .env.example
 
-4️⃣ Arquitetura da Aplicação
+Arquitetura da Aplicação
 
 Padrão utilizado: MVC (Model-View-Controller)
 
@@ -103,11 +103,11 @@ Fluxo:
 
 Request → Route → Controller → Model → MongoDB → Response
 
-5️⃣ Configuração de Banco de Dados
+Configuração de Banco de Dados
 
 O projeto usa MongoDB Atlas em produção e mongodb-memory-server em ambiente de testes.
 
-📄 Arquivo: src/config/db.js
+Arquivo: src/config/db.js
 
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -124,15 +124,15 @@ export const conectarBanco = async () => {
   }
 };
 
-6️⃣ Execução Local
+Execução Local
 npm run dev
 
 
 Acesse:
-📍 http://localhost:3000
+http://localhost:3000
 
-7️⃣ Execução via Docker
-📄 Dockerfile
+Execução via Docker
+Dockerfile
 FROM node:18
 WORKDIR /app
 COPY package*.json ./
@@ -141,7 +141,7 @@ COPY . .
 EXPOSE 3000
 CMD ["npm", "start"]
 
-📄 docker-compose.yml
+docker-compose.yml
 version: "3.9"
 services:
   app:
@@ -151,14 +151,14 @@ services:
     env_file:
       - .env
 
-🚀 Rodar container
+Rodar container
 docker compose up --build
 
-8️⃣ Testes Automatizados
+Testes Automatizados
 
 Framework: Jest + Supertest + MongoDB Memory Server
 
-🧪 Executar testes
+Executar testes
 npm test
 
 Exemplo de saída:
@@ -167,12 +167,12 @@ PASS tests/posts.test.js
 Test Suites: 2 passed, 2 total
 Tests:       10 passed, 10 total
 
-9️⃣ Integração Contínua (CI/CD)
+Integração Contínua (CI/CD)
 
 Pipeline: GitHub Actions
 Objetivo: Rodar testes e buildar imagem Docker automaticamente a cada push/pull request na branch main.
 
-📄 .github/workflows/ci.yml
+github/workflows/ci.yml
 
 name: CI Pipeline
 
@@ -204,7 +204,7 @@ jobs:
       - name: Build Docker image
         run: docker build -t blog-api .
 
-🔗 10️⃣ Guia de Uso das APIs
+Guia de Uso das APIs
 👤 Usuários
 Método	Rota	Descrição
 POST	/api/users/register	Cadastra novo usuário
